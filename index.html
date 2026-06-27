@@ -1,0 +1,466 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--blue:#2563eb;--navy:#0f172a;}
+.shell{font-family:'Inter',sans-serif;background:#0f172a;border-radius:14px;overflow:hidden;}
+.stage{position:relative;width:100%;height:500px;overflow:hidden;background:#f1f5f9;}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;}
+.scene.active{opacity:1;pointer-events:all;}
+.topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.logo-col{display:flex;flex-direction:column;line-height:1.1;}
+.logo-a{font-size:15px;font-weight:900;color:#0f172a;text-transform:uppercase;}
+.logo-b{font-size:8px;font-weight:700;color:#2563eb;letter-spacing:0.22em;text-transform:uppercase;}
+.nav-row{display:flex;gap:20px;}
+.nav-i{font-size:10px;font-weight:600;letter-spacing:0.1em;color:#94a3b8;text-transform:uppercase;}
+.nav-i.on{background:#0f172a;color:#fff;padding:5px 12px;border-radius:6px;}
+.cart{background:#2563eb;color:#fff;border:none;border-radius:7px;padding:7px 13px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;}
+.pbar-wrap{height:3px;background:#e2e8f0;flex-shrink:0;}
+.pbar-fill{height:100%;background:#2563eb;}
+.body{flex:1;overflow:hidden;position:relative;}
+.sc0-content{display:flex;flex-direction:column;height:100%;}
+.hero-top{background:#0f172a;padding:20px;display:flex;flex-direction:column;align-items:center;text-align:center;flex-shrink:0;}
+.ht-logo{font-size:20px;font-weight:900;color:#fff;text-transform:uppercase;}
+.ht-sub{font-size:8px;font-weight:700;color:#2563eb;letter-spacing:0.25em;text-transform:uppercase;margin-top:2px;}
+.ht-div{width:36px;height:2px;background:#2563eb;margin:10px auto;}
+.ht-tag{font-size:10px;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.18em;text-transform:uppercase;}
+.dest-row{flex:1;display:flex;flex-direction:column;min-height:0;}
+.dc{flex:1;padding:16px 20px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;min-height:100px;}
+.dc.d{background:#0f172a;}
+.dc.l{background:#fff;border-top:1px solid #e2e8f0;}
+.dc-bg-txt{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:60px;font-weight:900;opacity:0.06;color:#fff;letter-spacing:-0.05em;pointer-events:none;}
+.dc-bg-txt.dk{color:#000;}
+.dc-icon{width:36px;height:36px;background:#2563eb;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;flex-shrink:0;}
+.dc-h1{font-size:16px;font-weight:900;color:#fff;text-transform:uppercase;line-height:1;}
+.dc-h1.dk{color:#0f172a;}
+.dc-h2{font-size:16px;font-weight:900;color:#2563eb;text-transform:uppercase;}
+.dc-p{font-size:11px;color:rgba(255,255,255,0.45);margin:5px 0 10px;line-height:1.5;max-width:180px;}
+.dc-p.dk{color:#64748b;}
+.dc-cta{font-size:10px;font-weight:800;color:#fff;letter-spacing:0.12em;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.dc-cta.dk{color:#0f172a;}
+.tag-pill{background:#eff6ff;color:#1d4ed8;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;display:inline-flex;align-items:center;gap:3px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;}
+.pcard{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
+.pimg{background:#111;height:95px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pbadge{position:absolute;top:7px;left:7px;background:#0f172a;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;}
+.peta{position:absolute;bottom:6px;right:6px;background:rgba(37,99,235,0.18);color:#93c5fd;font-size:8px;font-weight:600;padding:2px 7px;border-radius:20px;border:1px solid rgba(37,99,235,0.3);}
+.pbox{padding:9px;}
+.pseries{font-size:9px;font-weight:800;color:#2563eb;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
+.pname{font-size:11px;font-weight:700;color:#0f172a;line-height:1.3;margin-bottom:6px;}
+.ptoggle{display:flex;border:1px solid #e2e8f0;border-radius:5px;overflow:hidden;margin-bottom:5px;}
+.ptog{flex:1;padding:4px;text-align:center;font-size:9px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;}
+.ptog.on{background:#0f172a;color:#fff;}
+.ptimer{font-size:8px;font-weight:600;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:3px;padding:3px 6px;margin-bottom:5px;display:flex;align-items:center;gap:3px;}
+.pprice{font-size:14px;font-weight:900;color:#0f172a;}
+.pdp{font-size:9px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.06em;margin-top:1px;}
+.pdp span{color:#0f172a;font-weight:800;}
+.pqty{display:flex;align-items:center;gap:6px;margin-top:6px;}
+.pqb{width:18px;height:18px;border:1px solid #e2e8f0;border-radius:3px;font-size:12px;font-weight:700;color:#0f172a;display:flex;align-items:center;justify-content:center;}
+.pqv{font-size:12px;font-weight:800;color:#0f172a;}
+.padd{width:100%;margin-top:8px;background:#0f172a;color:#fff;border:none;border-radius:7px;padding:8px;font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;}
+.crate-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;}
+.crate-hdr{padding:11px 14px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}
+.crate-ttl{font-size:13px;font-weight:800;color:#0f172a;}
+.crate-item{padding:11px 14px;display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid #f8fafc;}
+.cithumb{width:32px;height:40px;background:#111;border-radius:4px;flex-shrink:0;}
+.ciinfo{flex:1;}
+.ciname{font-size:11px;font-weight:600;color:#0f172a;margin-bottom:2px;}
+.citag{display:inline-block;font-size:8px;font-weight:700;color:#2563eb;background:#eff6ff;padding:1px 5px;border-radius:3px;text-transform:uppercase;letter-spacing:0.06em;}
+.cieta{font-size:9px;font-weight:600;color:#2563eb;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+.ciright{text-align:right;}
+.cidpl{font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;}
+.cidpv{font-size:13px;font-weight:900;color:#0f172a;}
+.crate-foot{padding:11px 14px;background:#f8fafc;}
+.cfoot-row{display:flex;justify-content:space-between;margin-bottom:5px;}
+.cfl{font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;}
+.cfv{font-size:12px;font-weight:700;color:#64748b;}
+.cfv.big{font-size:14px;font-weight:900;color:#2563eb;}
+.cta-row{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.cbtn{width:100%;padding:10px;border:none;border-radius:7px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Inter',sans-serif;cursor:pointer;}
+.cbtn.dark{background:#0f172a;color:#fff;}
+.cbtn.blue{background:#2563eb;color:#fff;}
+.sc3-wrap{display:flex;align-items:flex-start;justify-content:center;padding:14px;height:100%;}
+.modal-box{background:#fff;border-radius:12px;width:100%;max-width:320px;overflow:hidden;border:1px solid #e2e8f0;}
+.modal-hdr{padding:13px 16px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}
+.modal-ttl{font-size:13px;font-weight:900;color:#0f172a;text-transform:uppercase;}
+.modal-x{width:24px;height:24px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#64748b;}
+.modal-body{padding:14px 16px;}
+.order-item{border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;margin-bottom:10px;}
+.oi-top{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#0f172a;}
+.oi-top span{font-size:12px;font-weight:800;}
+.oi-tags{display:flex;gap:8px;margin-top:5px;}
+.oi-t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+.oi-t.bl{color:#2563eb;}.oi-t.gr{color:#64748b;}
+.dp-blk{background:#2563eb;border-radius:8px;padding:12px 14px;margin-bottom:10px;}
+.dp-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:5px;}
+.dp-row{display:flex;justify-content:space-between;align-items:center;}
+.dp-amt{font-size:24px;font-weight:900;color:#fff;}
+.dp-now{font-size:9px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;}
+.dp-bal{font-size:10px;font-weight:600;color:rgba(255,255,255,0.55);margin-top:6px;}
+.dp-bal span{color:#fff;font-weight:700;}
+.qr-sec{border:1.5px dashed #e2e8f0;border-radius:8px;padding:12px;text-align:center;margin-bottom:10px;}
+.qr-note{font-size:10px;color:#64748b;margin-bottom:8px;line-height:1.5;}
+.qr-note b{color:#0f172a;}
+.qr-bank{font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:3px;margin-bottom:6px;}
+.qr-img-wrap{width:72px;height:72px;margin:0 auto 6px;}
+.qr-who{font-size:10px;font-weight:600;color:#0f172a;}.qr-acc{font-size:9px;color:#64748b;}
+.disc{font-size:9px;color:#94a3b8;line-height:1.5;text-align:center;margin-bottom:10px;}
+.send-btn{width:100%;background:#2563eb;color:#fff;border:none;border-radius:7px;padding:11px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Inter',sans-serif;}
+.sc4-content{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;height:100%;text-align:center;}
+.done-circle{width:52px;height:52px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.done-h{font-size:18px;font-weight:900;color:#0f172a;margin-bottom:5px;}
+.done-p{font-size:12px;color:#64748b;margin-bottom:16px;line-height:1.6;}
+.checks{display:flex;flex-direction:column;gap:7px;width:100%;max-width:340px;margin:0 auto 16px;}
+.chk{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:9px;text-align:left;}
+.chk-ic{width:20px;height:20px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.chk-t{font-size:11px;color:#0f172a;font-weight:500;}
+.chk-t b{font-weight:800;}
+.visit-btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Inter',sans-serif;}
+.cursor{position:absolute;width:16px;height:16px;border-radius:50%;background:rgba(37,99,235,0.9);pointer-events:none;z-index:100;transition:left 0.6s cubic-bezier(.4,0,.2,1),top 0.6s cubic-bezier(.4,0,.2,1),transform 0.12s;transform:scale(1);}
+.cursor.click{transform:scale(0.55);}
+.cursor::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,99,235,0.35);}
+.hring{position:absolute;border-radius:8px;border:2.5px solid #2563eb;pointer-events:none;z-index:90;opacity:0;transition:opacity 0.35s;}
+.hring.show{opacity:1;}
+.callout{position:absolute;background:#0f172a;color:#fff;font-size:11px;font-weight:700;padding:6px 11px;border-radius:7px;pointer-events:none;z-index:95;white-space:nowrap;opacity:0;transition:opacity 0.35s;letter-spacing:0.01em;}
+.callout.show{opacity:1;}
+.callout::after{content:'';position:absolute;width:7px;height:7px;background:#0f172a;transform:rotate(45deg);}
+.callout.au::after{top:-3px;left:50%;margin-left:-3px;}
+.callout.ad::after{bottom:-3px;left:50%;margin-left:-3px;}
+.callout.al::after{left:-3px;top:50%;margin-top:-3px;}
+.callout.ar::after{right:-3px;top:50%;margin-top:-3px;}
+.wipe{position:absolute;inset:0;background:#2563eb;z-index:200;transform:scaleX(0);pointer-events:none;}
+.ctrl-bar{background:#0f172a;padding:12px 18px;display:flex;align-items:center;gap:10px;}
+.ctrl-dots{display:flex;gap:5px;align-items:center;}
+.cdot{width:6px;height:6px;border-radius:50%;background:#1e293b;transition:all 0.3s;}
+.cdot.on{background:#2563eb;width:18px;border-radius:3px;}
+.cdot.dn{background:#334155;}
+.step-info{font-size:11px;color:#475569;font-weight:500;}
+.ctrl-btns{display:flex;gap:7px;margin-left:auto;}
+.nb{padding:8px 16px;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+.nb.bk{background:#1e293b;color:#64748b;}
+.nb.nx{background:#2563eb;color:#fff;}
+.pos-label{position:absolute;background:rgba(255,0,0,0.8);color:#fff;font-size:9px;padding:2px 4px;font-family:monospace;z-index:300;pointer-events:none;}
+</style>
+
+<div class="shell">
+<div class="stage" id="stage">
+  <div class="wipe" id="wipe"></div>
+  <div class="cursor" id="cur" style="left:-50px;top:-50px;opacity:0;"></div>
+  <div class="hring" id="hr"></div>
+  <div class="callout" id="co"></div>
+
+  <div class="scene active" id="sc0">
+    <div class="sc0-content">
+      <div class="hero-top">
+        <div class="ht-logo">Crate Drop</div>
+        <div class="ht-sub">Collective</div>
+        <div class="ht-div"></div>
+        <div class="ht-tag">Choose your destination</div>
+      </div>
+      <div class="dest-row">
+        <div class="dc d" id="enterPre">
+          <div class="dc-bg-txt">PRE</div>
+          <div class="dc-icon"><i class="ti ti-clock" style="font-size:18px;color:#fff" aria-hidden="true"></i></div>
+          <div class="dc-h1">Pre-order</div>
+          <div class="dc-h2">Drops</div>
+          <div class="dc-p">Secure upcoming releases and exclusive sets before they hit the shelves.</div>
+          <div class="dc-cta" id="enterShopBtn">Enter Shop <i class="ti ti-arrow-right" style="font-size:13px" aria-hidden="true"></i></div>
+        </div>
+        <div class="dc l">
+          <div class="dc-bg-txt dk">LIVE</div>
+          <div class="dc-icon" style="background:#0f172a;"><i class="ti ti-package" style="font-size:18px;color:#fff" aria-hidden="true"></i></div>
+          <div class="dc-h1 dk">On-hand</div>
+          <div class="dc-h2">Stock</div>
+          <div class="dc-p dk">Ready to ship immediately. Browse current inventory.</div>
+          <div class="dc-cta dk">Enter Shop <i class="ti ti-arrow-right" style="font-size:13px" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" id="sc1">
+    <div class="topbar">
+      <div class="logo-col"><div class="logo-a">Crate Drop</div><div class="logo-b">Collective</div></div>
+      <div class="nav-row"><span class="nav-i">Home</span><span class="nav-i">Products</span><span class="nav-i on">Preorder</span></div>
+      <button class="cart" id="cartBtn"><i class="ti ti-shopping-cart" style="font-size:13px" aria-hidden="true"></i> ₱0</button>
+    </div>
+    <div class="pbar-wrap"><div class="pbar-fill" style="width:25%"></div></div>
+    <div class="body" style="padding:12px;overflow:hidden;">
+      <div class="tag-pill"><i class="ti ti-circle-number-1" style="font-size:12px" aria-hidden="true"></i>Browse drops</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="pcard" id="card1">
+          <div class="pimg"><div style="width:52px;height:70px;background:#1a1a1a;border:1px solid #333;border-radius:3px;display:flex;align-items:center;justify-content:center;"><div style="font-size:7px;font-weight:800;color:#fff;text-align:center;line-height:1.5;">[OP-18]<br>ONE PIECE</div></div><div class="pbadge">Booster Box</div><div class="peta">ETA: Nov 2026</div></div>
+          <div class="pbox"><div class="pseries">OP-18</div><div class="pname">One Piece (Japanese) Booster Box OP-18</div><div class="ptoggle"><div class="ptog on">UNIT</div><div class="ptog">CASE (12)</div></div><div class="ptimer"><i class="ti ti-trophy" style="font-size:10px" aria-hidden="true"></i>CLOSES: 0D 0H 16M 51S</div><div class="pprice">₱3,500</div><div class="pdp">30% DP: <span>₱1,050</span></div><div class="pqty"><div class="pqb">-</div><div class="pqv">1</div><div class="pqb">+</div></div><button class="padd" id="addBtn">Add to Crate</button></div>
+        </div>
+        <div class="pcard" id="card2">
+          <div class="pimg"><div style="width:52px;height:70px;background:#2a1f0a;border:1px solid #4a3520;border-radius:3px;display:flex;align-items:center;justify-content:center;"><div style="font-size:7px;font-weight:800;color:#f59e0b;text-align:center;line-height:1.5;">PALWORLD<br>TCG</div></div><div class="pbadge">Booster Box</div><div class="peta">ETA: Oct 2026</div></div>
+          <div class="pbox"><div class="pseries">Legends Awaken</div><div class="pname">Palworld Official Card Game Legends Awaken</div><div class="ptoggle"><div class="ptog on">UNIT</div><div class="ptog">CASE (12)</div></div><div class="ptimer"><i class="ti ti-trophy" style="font-size:10px" aria-hidden="true"></i>CLOSES: 11D 23H 16M</div><div class="pprice">₱2,700</div><div class="pdp">30% DP: <span>₱810</span></div><div class="pqty"><div class="pqb">-</div><div class="pqv">1</div><div class="pqb">+</div></div><button class="padd">Add to Crate</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" id="sc2">
+    <div class="topbar">
+      <div class="logo-col"><div class="logo-a">Crate Drop</div><div class="logo-b">Collective</div></div>
+      <div class="nav-row"><span class="nav-i">Home</span><span class="nav-i">Products</span><span class="nav-i on">Preorder</span></div>
+      <button class="cart"><i class="ti ti-shopping-cart" style="font-size:13px" aria-hidden="true"></i> ₱1,050</button>
+    </div>
+    <div class="pbar-wrap"><div class="pbar-fill" style="width:55%"></div></div>
+    <div class="body" style="padding:12px;overflow:hidden;">
+      <div class="tag-pill"><i class="ti ti-circle-number-2" style="font-size:12px" aria-hidden="true"></i>Review your crate</div>
+      <div class="crate-card">
+        <div class="crate-hdr"><div class="crate-ttl">Your Crate</div><div style="color:#94a3b8;font-size:16px;">×</div></div>
+        <div class="crate-item"><div class="cithumb"></div><div class="ciinfo"><div class="ciname">One Piece (Japanese) Booster Box OP-18 <span class="citag">UNIT</span></div><div class="cieta">ETA: November 2026</div><div style="display:flex;gap:5px;margin-top:6px;align-items:center;"><div class="pqb">-</div><span style="font-size:11px;font-weight:800;color:#0f172a;">1</span><div class="pqb">+</div></div></div><div class="ciright"><div class="cidpl">30% DP:</div><div class="cidpv">₱1,050</div></div></div>
+        <div class="crate-foot">
+          <div class="cfoot-row"><span class="cfl">Total order value:</span><span class="cfv">₱3,500</span></div>
+          <div class="cfoot-row"><span class="cfl" style="color:#2563eb;font-weight:800;">30% downpayment:</span><span class="cfv big">₱1,050</span></div>
+          <div class="cta-row">
+            <button class="cbtn dark" id="assistedBtn"><i class="ti ti-clipboard-copy" style="font-size:13px" aria-hidden="true"></i>Assisted Checkout (Paste Order)</button>
+            <button class="cbtn blue" id="selfBtn"><i class="ti ti-qrcode" style="font-size:13px" aria-hidden="true"></i>Self-Checkout (Pay via QR)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" id="sc3">
+    <div class="topbar">
+      <div class="logo-col"><div class="logo-a">Crate Drop</div><div class="logo-b">Collective</div></div>
+      <div class="nav-row"><span class="nav-i">Home</span><span class="nav-i">Products</span><span class="nav-i on">Preorder</span></div>
+      <button class="cart"><i class="ti ti-shopping-cart" style="font-size:13px" aria-hidden="true"></i> ₱1,050</button>
+    </div>
+    <div class="pbar-wrap"><div class="pbar-fill" style="width:80%"></div></div>
+    <div class="body sc3-wrap">
+      <div class="modal-box">
+        <div class="modal-hdr"><div class="modal-ttl">Order Breakdown</div><div class="modal-x">×</div></div>
+        <div class="modal-body">
+          <div class="order-item"><div class="oi-top">1× One Piece (Japanese) Booster Box OP-18<span>₱1,050</span></div><div class="oi-tags"><span class="oi-t bl">UNIT</span><span class="oi-t gr">ETA: NOV 2026</span><span class="oi-t gr">BAL: ₱2,450</span></div></div>
+          <div class="dp-blk" id="dpBlk"><div class="dp-lbl">Total downpayment due (30%)</div><div class="dp-row"><div class="dp-amt">₱1,050</div><div class="dp-now">To be paid now</div></div><div class="dp-bal">Balance remaining later: <span>₱2,450</span></div></div>
+          <div class="qr-sec" id="qrSec"><div class="qr-note">Pay via Instapay. <b>TAKE A SCREENSHOT</b> of this screen and your payment receipt.</div><div class="qr-bank"><span style="color:#f26122;font-weight:900;">Mari</span><span style="color:#254aa5;font-weight:900;">Bank</span></div><div class="qr-img-wrap"><svg viewBox="0 0 72 72" width="72" height="72"><rect width="72" height="72" fill="white"/><rect x="5" y="5" width="22" height="22" fill="none" stroke="#000" stroke-width="2.5"/><rect x="9" y="9" width="14" height="14" fill="#000"/><rect x="45" y="5" width="22" height="22" fill="none" stroke="#000" stroke-width="2.5"/><rect x="49" y="9" width="14" height="14" fill="#000"/><rect x="5" y="45" width="22" height="22" fill="none" stroke="#000" stroke-width="2.5"/><rect x="9" y="49" width="14" height="14" fill="#000"/><rect x="32" y="6" width="4" height="4" fill="#000"/><rect x="38" y="6" width="4" height="4" fill="#000"/><rect x="32" y="14" width="4" height="4" fill="#000"/><rect x="38" y="18" width="4" height="4" fill="#000"/><rect x="32" y="32" width="7" height="4" fill="#000"/><rect x="42" y="32" width="4" height="4" fill="#000"/><rect x="50" y="32" width="4" height="4" fill="#000"/><rect x="58" y="36" width="4" height="7" fill="#000"/><rect x="32" y="46" width="4" height="7" fill="#000"/><rect x="40" y="50" width="5" height="4" fill="#000"/><rect x="48" y="46" width="4" height="4" fill="#000"/><rect x="54" y="50" width="4" height="6" fill="#000"/><rect x="60" y="46" width="6" height="4" fill="#000"/><rect x="32" y="58" width="6" height="4" fill="#000"/><rect x="42" y="58" width="4" height="4" fill="#000"/><rect x="54" y="58" width="4" height="7" fill="#000"/><rect x="62" y="60" width="4" height="4" fill="#000"/></svg></div><div class="qr-who">KATHREN YVONNE DY.</div><div class="qr-acc">MariBank(****3441)</div></div>
+          <div class="disc">Pre-Orders are subject to country allocation. By placing a pre-order, I, the customer, acknowledge that there is a possibility of allocation cuts.</div>
+          <button class="send-btn" id="sendBtn"><i class="ti ti-brand-messenger" style="font-size:14px" aria-hidden="true"></i>Send Proof to Messenger</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" id="sc4">
+    <div class="topbar">
+      <div class="logo-col"><div class="logo-a">Crate Drop</div><div class="logo-b">Collective</div></div>
+      <div class="nav-row"><span class="nav-i">Home</span><span class="nav-i">Products</span><span class="nav-i on">Preorder</span></div>
+      <button class="cart"><i class="ti ti-shopping-cart" style="font-size:13px" aria-hidden="true"></i> ₱1,050</button>
+    </div>
+    <div class="pbar-wrap"><div class="pbar-fill" style="width:100%"></div></div>
+    <div class="body">
+      <div class="sc4-content">
+        <div class="done-circle"><i class="ti ti-check" style="font-size:22px;color:#16a34a" aria-hidden="true"></i></div>
+        <div class="done-h">Pre-order placed!</div>
+        <div class="done-p">Slot reserved. The team confirms once payment proof arrives on Messenger.</div>
+        <div class="checks">
+          <div class="chk"><div class="chk-ic"><i class="ti ti-check" style="font-size:11px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Product selected</b> — OP-18 Booster Box (1× UNIT)</div></div>
+          <div class="chk"><div class="chk-ic"><i class="ti ti-check" style="font-size:11px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Crate reviewed</b> — ₱3,500 total, ₱1,050 DP</div></div>
+          <div class="chk"><div class="chk-ic"><i class="ti ti-check" style="font-size:11px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Payment sent</b> — ₱1,050 via Instapay QR</div></div>
+          <div class="chk"><div class="chk-ic"><i class="ti ti-check" style="font-size:11px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Proof submitted</b> — screenshot sent on Messenger</div></div>
+        </div>
+        <button class="visit-btn" id="visitBtn" onclick="window.openLink('https://cratedropcollective.github.io/preorder')">Visit pre-order portal <i class="ti ti-external-link" style="font-size:13px" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="ctrl-bar">
+  <div class="ctrl-dots" id="dots"></div>
+  <div class="step-info" id="si">Intro</div>
+  <div class="ctrl-btns">
+    <button class="nb bk" id="btnB" onclick="manualGo(-1)">Back</button>
+    <button class="nb nx" id="btnN" onclick="manualGo(1)">Start demo</button>
+  </div>
+</div>
+</div>
+
+<script>
+const SCENES=['sc0','sc1','sc2','sc3','sc4'];
+const LABELS=['Intro','Browse drops','Review crate','Pay via QR','Done!'];
+const NLABELS=['Start demo','Next: Crate','Next: Pay','Next: Complete','Visit site'];
+let cur=0,busy=false,autoT=null;
+const stage=document.getElementById('stage');
+const wipeEl=document.getElementById('wipe');
+const curEl=document.getElementById('cur');
+const hrEl=document.getElementById('hr');
+const coEl=document.getElementById('co');
+let annT=[];
+
+function rect(id){
+  const el=document.getElementById(id);
+  if(!el)return null;
+  const sr=stage.getBoundingClientRect();
+  const er=el.getBoundingClientRect();
+  return{x:er.left-sr.left,y:er.top-sr.top,w:er.width,h:er.height,cx:er.left-sr.left+er.width/2,cy:er.top-sr.top+er.height/2};
+}
+
+function clearAnns(){annT.forEach(clearTimeout);annT=[];curEl.style.opacity='0';hrEl.classList.remove('show');coEl.classList.remove('show');}
+
+function moveCursor(x,y,delay,onArrive){
+  const t=setTimeout(()=>{
+    curEl.style.opacity='1';
+    curEl.style.left=(x-8)+'px';
+    curEl.style.top=(y-8)+'px';
+    setTimeout(()=>{
+      curEl.classList.add('click');
+      setTimeout(()=>{curEl.classList.remove('click');if(onArrive)onArrive();},150);
+    },620);
+  },delay);
+  annT.push(t);
+}
+
+function ring(x,y,w,h,pad,text,arrow,delay){
+  const p=pad||4;
+  const t=setTimeout(()=>{
+    hrEl.style.left=(x-p)+'px';
+    hrEl.style.top=(y-p)+'px';
+    hrEl.style.width=(w+p*2)+'px';
+    hrEl.style.height=(h+p*2)+'px';
+    hrEl.classList.add('show');
+    if(text){
+      coEl.textContent=text;
+      coEl.className='callout show '+arrow;
+      const coW=Math.max(text.length*7+22,120);
+      if(arrow==='au'){coEl.style.left=(x+w/2-coW/2)+'px';coEl.style.top=(y-p-34)+'px';}
+      else if(arrow==='ad'){coEl.style.left=(x+w/2-coW/2)+'px';coEl.style.top=(y+h+p+8)+'px';}
+      else if(arrow==='ar'){coEl.style.left=(x-p-coW-10)+'px';coEl.style.top=(y+h/2-14)+'px';}
+      else{coEl.style.left=(x+w+p+8)+'px';coEl.style.top=(y+h/2-14)+'px';}
+    }
+  },delay);
+  annT.push(t);
+}
+
+function hideRing(delay){const t=setTimeout(()=>{hrEl.classList.remove('show');coEl.classList.remove('show');},delay);annT.push(t);}
+
+function scheduleAnns(idx){
+  clearAnns();
+  const t0=setTimeout(()=>{
+    if(idx===0){
+      const r=rect('enterPre');
+      if(r){
+        ring(r.x,r.y,r.w,r.h,4,'Tap to enter pre-order shop','au',300);
+        moveCursor(r.cx,r.cy+20,600);
+      }
+    }
+    else if(idx===1){
+      const rb=rect('addBtn');
+      if(rb){
+        ring(rb.x,rb.y,rb.w,rb.h,3,'Tap Add to Crate','au',300);
+        moveCursor(rb.cx,rb.cy,600,()=>{
+          hideRing(200);
+          const rc=rect('cartBtn');
+          if(rc){
+            const t2=setTimeout(()=>{
+              ring(rc.x,rc.y,rc.w,rc.h,3,'Item added — cart updates!','ad',0);
+              moveCursor(rc.cx,rc.cy,200);
+            },800);
+            annT.push(t2);
+          }
+        });
+      }
+    }
+    else if(idx===2){
+      const ra=rect('assistedBtn');
+      if(ra){
+        ring(ra.x,ra.y,ra.w,ra.h,3,'Option 1: Assisted via Messenger','al',300);
+        moveCursor(ra.cx,ra.cy,600,()=>{
+          hideRing(200);
+          const rs=rect('selfBtn');
+          if(rs){
+            const t2=setTimeout(()=>{
+              ring(rs.x,rs.y,rs.w,rs.h,3,'Option 2: Self-Checkout QR','al',0);
+              moveCursor(rs.cx,rs.cy,200);
+            },900);
+            annT.push(t2);
+          }
+        });
+      }
+    }
+    else if(idx===3){
+      const rd=rect('dpBlk');
+      if(rd){
+        ring(rd.x,rd.y,rd.w,rd.h,3,'30% DP due now — shown here','au',300);
+        moveCursor(rd.cx,rd.cy,600,()=>{
+          hideRing(200);
+          const rq=rect('qrSec');
+          if(rq){
+            const t2=setTimeout(()=>{
+              ring(rq.x,rq.y,rq.w,rq.h,3,'Scan QR to pay via Instapay','au',0);
+              const rs2=rect('sendBtn');
+              if(rs2) moveCursor(rs2.cx,rs2.cy,800);
+            },900);
+            annT.push(t2);
+          }
+        });
+      }
+    }
+    else if(idx===4){
+      const rv=rect('visitBtn');
+      if(rv){
+        ring(rv.x,rv.y,rv.w,rv.h,4,'Ready — visit the live site!','au',400);
+        moveCursor(rv.cx,rv.cy,700);
+      }
+    }
+  },500);
+  annT.push(t0);
+}
+
+function showScene(idx){
+  SCENES.forEach((id,i)=>{document.getElementById(id).classList.toggle('active',i===idx);});
+  updateCtrl(idx);
+}
+
+function updateCtrl(idx){
+  const d=document.getElementById('dots');
+  d.innerHTML='';
+  for(let i=0;i<SCENES.length;i++){const el=document.createElement('div');el.className='cdot'+(i===idx?' on':i<idx?' dn':'');d.appendChild(el);}
+  document.getElementById('si').textContent=LABELS[idx];
+  document.getElementById('btnN').textContent=NLABELS[idx];
+  document.getElementById('btnB').style.opacity=idx===0?'0.3':'1';
+  document.getElementById('btnB').disabled=idx===0;
+}
+
+function wipeGo(dir,cb){
+  wipeEl.style.transition='none';
+  wipeEl.style.transformOrigin=dir>0?'left':'right';
+  wipeEl.style.transform='scaleX(0)';
+  void wipeEl.offsetWidth;
+  wipeEl.style.transition='transform 0.26s cubic-bezier(.4,0,.2,1)';
+  wipeEl.style.transform='scaleX(1)';
+  setTimeout(()=>{
+    cb();
+    wipeEl.style.transition='none';
+    wipeEl.style.transformOrigin=dir>0?'right':'left';
+    void wipeEl.offsetWidth;
+    wipeEl.style.transition='transform 0.26s cubic-bezier(.4,0,.2,1)';
+    wipeEl.style.transform='scaleX(0)';
+    setTimeout(()=>{busy=false;},280);
+  },270);
+}
+
+function go(dir){
+  if(busy)return;
+  const nxt=cur+dir;
+  if(nxt<0||nxt>=SCENES.length)return;
+  busy=true;
+  clearAnns();
+  wipeGo(dir,()=>{cur=nxt;showScene(cur);setTimeout(()=>scheduleAnns(cur),100);});
+}
+
+function manualGo(dir){
+  clearAuto();
+  if(cur+dir>=SCENES.length){window.openLink('https://cratedropcollective.github.io/preorder');return;}
+  go(dir);
+}
+
+function startAuto(){autoT=setTimeout(function loop(){if(cur<SCENES.length-1){go(1);autoT=setTimeout(loop,4200);}},3200);}
+function clearAuto(){clearTimeout(autoT);autoT=null;}
+
+showScene(0);
+setTimeout(()=>scheduleAnns(0),600);
+startAuto();
+</script>
