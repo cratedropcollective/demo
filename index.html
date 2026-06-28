@@ -1,181 +1,174 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Crate Drop Collective — Pre-order Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
-.shell{font-family:'Inter',sans-serif;background:#0f172a;display:flex;flex-direction:column;width:100%;height:100dvh;min-height:560px;overflow:hidden;}
+html,body{height:100%;width:100%;overflow:hidden;background:#0f172a;}
+.shell{font-family:'Inter',sans-serif;background:#0f172a;display:flex;flex-direction:column;width:100%;height:100dvh;min-height:100vh;overflow:hidden;max-width:480px;margin:0 auto;}
 .stage{position:relative;flex:1;overflow:hidden;background:#f1f5f9;min-height:0;}
 .scene{position:absolute;inset:0;display:flex;flex-direction:column;visibility:hidden;}
 .scene.on{visibility:visible;}
-.tb{background:#fff;border-bottom:1px solid #e2e8f0;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.tb-logo{line-height:1.1;}
-.tb-a{font-size:13px;font-weight:900;color:#0f172a;text-transform:uppercase;letter-spacing:-0.01em;}
-.tb-b{font-size:7px;font-weight:700;color:#2563eb;letter-spacing:0.22em;text-transform:uppercase;}
-.tb-nav{display:flex;gap:10px;}
-.tb-n{font-size:9px;font-weight:600;letter-spacing:0.08em;color:#94a3b8;text-transform:uppercase;}
-.tb-n.on{background:#0f172a;color:#fff;padding:4px 8px;border-radius:5px;}
-.tb-cart{background:#2563eb;color:#fff;border:none;border-radius:6px;padding:5px 9px;font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px;font-family:'Inter',sans-serif;}
-.pb{height:2px;background:#e2e8f0;flex-shrink:0;}
-.pb-f{height:100%;background:#2563eb;}
-.body{flex:1;overflow:hidden;padding:10px;min-height:0;}
+.tb{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.tb-logo{line-height:1.15;}
+.tb-a{font-size:14px;font-weight:900;color:#0f172a;text-transform:uppercase;letter-spacing:-0.01em;}
+.tb-b{font-size:8px;font-weight:700;color:#2563eb;letter-spacing:0.22em;text-transform:uppercase;}
+.tb-nav{display:flex;gap:12px;}
+.tb-n{font-size:10px;font-weight:600;letter-spacing:0.08em;color:#94a3b8;text-transform:uppercase;}
+.tb-n.on{background:#0f172a;color:#fff;padding:5px 10px;border-radius:5px;}
+.tb-cart{background:#2563eb;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px;font-family:'Inter',sans-serif;white-space:nowrap;}
+.pb{height:3px;background:#e2e8f0;flex-shrink:0;}
+.pb-f{height:100%;background:#2563eb;transition:width .5s ease;}
+.body{flex:1;overflow:hidden;padding:12px;min-height:0;}
 .s0-wrap{display:flex;flex-direction:column;height:100%;}
-.hero{background:#0f172a;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;flex-shrink:0;}
-.hero-logo{font-size:18px;font-weight:900;color:#fff;text-transform:uppercase;}
-.hero-sub{font-size:7px;font-weight:700;color:#2563eb;letter-spacing:0.25em;text-transform:uppercase;margin-top:2px;}
-.hero-line{width:30px;height:2px;background:#2563eb;margin:8px auto;}
-.hero-tag{font-size:9px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.16em;text-transform:uppercase;}
+.hero{background:#0f172a;padding:18px 16px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;flex-shrink:0;}
+.hero-logo{font-size:22px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.01em;}
+.hero-sub{font-size:8px;font-weight:700;color:#2563eb;letter-spacing:0.25em;text-transform:uppercase;margin-top:3px;}
+.hero-line{width:34px;height:2px;background:#2563eb;margin:10px auto;}
+.hero-tag{font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.16em;text-transform:uppercase;}
 .dest-col{flex:1;display:flex;flex-direction:column;min-height:0;}
-.dest{flex:1;padding:10px 14px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;min-height:0;}
+.dest{flex:1;padding:14px 18px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;min-height:0;}
 .dest.dk{background:#0f172a;}
 .dest.lt{background:#fff;border-top:1px solid #e2e8f0;}
-.dest-bg{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:50px;font-weight:900;opacity:0.06;pointer-events:none;color:#fff;}
+.dest-bg{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:56px;font-weight:900;opacity:0.06;pointer-events:none;color:#fff;}
 .dest-bg.d{color:#000;}
-.dest-icon{width:28px;height:28px;background:#2563eb;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:5px;flex-shrink:0;}
-.dest-h1{font-size:13px;font-weight:900;color:#fff;text-transform:uppercase;line-height:1;}
+.dest-icon{width:32px;height:32px;background:#2563eb;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:7px;flex-shrink:0;}
+.dest-h1{font-size:15px;font-weight:900;color:#fff;text-transform:uppercase;line-height:1;}
 .dest-h1.d{color:#0f172a;}
-.dest-h2{font-size:13px;font-weight:900;color:#2563eb;text-transform:uppercase;}
-.dest-p{font-size:10px;color:rgba(255,255,255,0.4);margin:3px 0 7px;line-height:1.4;}
+.dest-h2{font-size:15px;font-weight:900;color:#2563eb;text-transform:uppercase;}
+.dest-p{font-size:11px;color:rgba(255,255,255,0.45);margin:4px 0 9px;line-height:1.45;}
 .dest-p.d{color:#64748b;}
-.dest-cta{font-size:9px;font-weight:800;color:#fff;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:4px;}
+.dest-cta{font-size:10px;font-weight:800;color:#fff;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:4px;}
 .dest-cta.d{color:#0f172a;}
-.pill{background:#eff6ff;color:#1d4ed8;font-size:8px;font-weight:800;padding:2px 7px;border-radius:20px;display:inline-flex;align-items:center;gap:3px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px;}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pill{background:#eff6ff;color:#1d4ed8;font-size:9px;font-weight:800;padding:3px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:3px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:9px;}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .pc{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;}
-.pc-img{background:#111;height:68px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.pc-badge{position:absolute;top:5px;left:5px;background:#0f172a;color:#fff;font-size:7px;font-weight:800;padding:2px 5px;border-radius:2px;text-transform:uppercase;}
-.pc-eta{position:absolute;bottom:4px;right:5px;background:rgba(37,99,235,0.15);color:#93c5fd;font-size:7px;font-weight:600;padding:2px 5px;border-radius:20px;border:1px solid rgba(37,99,235,0.3);}
-.pc-body{padding:6px;}
-.pc-series{font-size:8px;font-weight:800;color:#2563eb;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1px;}
-.pc-name{font-size:9px;font-weight:700;color:#0f172a;line-height:1.3;margin-bottom:4px;}
-.pc-tog{display:flex;border:1px solid #e2e8f0;border-radius:4px;overflow:hidden;margin-bottom:3px;}
-.pc-t{flex:1;padding:3px;text-align:center;font-size:7px;font-weight:700;color:#94a3b8;text-transform:uppercase;}
+.pc-img{background:#111;height:80px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pc-badge{position:absolute;top:6px;left:6px;background:#0f172a;color:#fff;font-size:7px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.08em;text-transform:uppercase;}
+.pc-eta{position:absolute;bottom:5px;right:6px;background:rgba(37,99,235,0.15);color:#93c5fd;font-size:7px;font-weight:600;padding:2px 6px;border-radius:20px;border:1px solid rgba(37,99,235,0.3);}
+.pc-body{padding:8px;}
+.pc-series{font-size:9px;font-weight:800;color:#2563eb;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
+.pc-name{font-size:10px;font-weight:700;color:#0f172a;line-height:1.35;margin-bottom:5px;}
+.pc-tog{display:flex;border:1px solid #e2e8f0;border-radius:4px;overflow:hidden;margin-bottom:4px;}
+.pc-t{flex:1;padding:4px;text-align:center;font-size:8px;font-weight:700;color:#94a3b8;text-transform:uppercase;}
 .pc-t.on{background:#0f172a;color:#fff;}
-.pc-timer{font-size:7px;font-weight:600;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:3px;padding:2px 5px;margin-bottom:3px;display:flex;align-items:center;gap:2px;}
-.pc-price{font-size:12px;font-weight:900;color:#0f172a;}
-.pc-dp{font-size:7px;font-weight:600;color:#64748b;text-transform:uppercase;margin-top:1px;}
+.pc-timer{font-size:7px;font-weight:600;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:3px;padding:2px 6px;margin-bottom:4px;display:flex;align-items:center;gap:2px;}
+.pc-price{font-size:14px;font-weight:900;color:#0f172a;}
+.pc-dp{font-size:8px;font-weight:600;color:#64748b;text-transform:uppercase;margin-top:2px;}
 .pc-dp b{color:#0f172a;font-weight:800;}
-.pc-qty{display:flex;align-items:center;gap:4px;margin-top:4px;}
-.qb{width:15px;height:15px;border:1px solid #e2e8f0;border-radius:3px;font-size:10px;font-weight:700;color:#0f172a;display:flex;align-items:center;justify-content:center;}
-.qv{font-size:10px;font-weight:800;color:#0f172a;}
-.pc-add{width:100%;margin-top:5px;background:#0f172a;color:#fff;border:none;border-radius:5px;padding:6px;font-size:8px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;font-family:'Inter',sans-serif;}
+.pc-qty{display:flex;align-items:center;gap:5px;margin-top:5px;}
+.qb{width:18px;height:18px;border:1px solid #e2e8f0;border-radius:3px;font-size:12px;font-weight:700;color:#0f172a;display:flex;align-items:center;justify-content:center;}
+.qv{font-size:12px;font-weight:800;color:#0f172a;}
+.pc-add{width:100%;margin-top:6px;background:#0f172a;color:#fff;border:none;border-radius:6px;padding:8px;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;font-family:'Inter',sans-serif;cursor:pointer;}
 .crate{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;}
-.crate-hdr{padding:8px 11px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}
-.crate-ttl{font-size:12px;font-weight:800;color:#0f172a;}
-.crate-item{padding:8px 11px;display:flex;gap:8px;align-items:flex-start;border-bottom:1px solid #f8fafc;}
-.ci-t{width:26px;height:33px;background:#111;border-radius:3px;flex-shrink:0;}
+.crate-hdr{padding:10px 13px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}
+.crate-ttl{font-size:13px;font-weight:800;color:#0f172a;}
+.crate-item{padding:10px 13px;display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid #f8fafc;}
+.ci-t{width:30px;height:38px;background:#111;border-radius:3px;flex-shrink:0;}
 .ci-i{flex:1;}
-.ci-name{font-size:9px;font-weight:600;color:#0f172a;margin-bottom:1px;line-height:1.3;}
-.ci-tag{display:inline-block;font-size:7px;font-weight:700;color:#2563eb;background:#eff6ff;padding:1px 4px;border-radius:2px;text-transform:uppercase;}
-.ci-eta{font-size:8px;font-weight:600;color:#2563eb;text-transform:uppercase;margin-top:1px;}
+.ci-name{font-size:10px;font-weight:600;color:#0f172a;margin-bottom:2px;line-height:1.3;}
+.ci-tag{display:inline-block;font-size:8px;font-weight:700;color:#2563eb;background:#eff6ff;padding:1px 5px;border-radius:2px;text-transform:uppercase;letter-spacing:0.06em;}
+.ci-eta{font-size:9px;font-weight:600;color:#2563eb;text-transform:uppercase;margin-top:2px;}
 .ci-r{text-align:right;flex-shrink:0;}
-.ci-dpl{font-size:7px;font-weight:700;color:#64748b;text-transform:uppercase;}
-.ci-dpv{font-size:11px;font-weight:900;color:#0f172a;}
-.crate-foot{padding:8px 11px;background:#f8fafc;}
-.cf-r{display:flex;justify-content:space-between;margin-bottom:3px;}
-.cf-l{font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;}
-.cf-v{font-size:11px;font-weight:700;color:#64748b;}
-.cf-v.big{font-size:12px;font-weight:900;color:#2563eb;}
-.co-btns{display:flex;flex-direction:column;gap:5px;margin-top:7px;}
-.co-btn{width:100%;padding:8px;border:none;border-radius:6px;font-size:8px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'Inter',sans-serif;cursor:pointer;}
+.ci-dpl{font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;}
+.ci-dpv{font-size:13px;font-weight:900;color:#0f172a;}
+.crate-foot{padding:10px 13px;background:#f8fafc;}
+.cf-r{display:flex;justify-content:space-between;margin-bottom:4px;}
+.cf-l{font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.07em;}
+.cf-v{font-size:12px;font-weight:700;color:#64748b;}
+.cf-v.big{font-size:14px;font-weight:900;color:#2563eb;}
+.co-btns{display:flex;flex-direction:column;gap:6px;margin-top:9px;}
+.co-btn{width:100%;padding:10px;border:none;border-radius:7px;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Inter',sans-serif;cursor:pointer;}
 .co-btn.dk{background:#0f172a;color:#fff;}
 .co-btn.bl{background:#2563eb;color:#fff;}
-.modal-wrap{padding:10px;display:flex;justify-content:center;height:100%;}
+.modal-wrap{padding:12px;display:flex;justify-content:center;height:100%;}
 .modal{background:#fff;border-radius:10px;width:100%;overflow:hidden;border:1px solid #e2e8f0;display:flex;flex-direction:column;}
-.mhdr{padding:9px 13px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
-.mttl{font-size:11px;font-weight:900;color:#0f172a;text-transform:uppercase;}
-.mx{width:20px;height:20px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748b;}
-.mbody{padding:11px 13px;overflow:hidden;}
-.oi{border:1px solid #e2e8f0;border-radius:6px;padding:7px 9px;margin-bottom:7px;}
-.oi-r{display:flex;justify-content:space-between;font-size:9px;font-weight:600;color:#0f172a;}
-.oi-r b{font-size:10px;font-weight:800;}
-.oi-tags{display:flex;gap:5px;margin-top:3px;}
-.oi-t{font-size:7px;font-weight:700;text-transform:uppercase;}
+.mhdr{padding:11px 15px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.mttl{font-size:12px;font-weight:900;color:#0f172a;text-transform:uppercase;}
+.mx{width:22px;height:22px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#64748b;}
+.mbody{padding:12px 15px;overflow:hidden;}
+.oi{border:1px solid #e2e8f0;border-radius:7px;padding:9px 11px;margin-bottom:9px;}
+.oi-r{display:flex;justify-content:space-between;font-size:10px;font-weight:600;color:#0f172a;}
+.oi-r b{font-size:11px;font-weight:800;}
+.oi-tags{display:flex;gap:6px;margin-top:4px;}
+.oi-t{font-size:8px;font-weight:700;text-transform:uppercase;}
 .oi-t.bl{color:#2563eb;}.oi-t.gr{color:#64748b;}
-.dp-blk{background:#2563eb;border-radius:6px;padding:9px 11px;margin-bottom:7px;}
-.dp-lbl{font-size:7px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;margin-bottom:3px;}
+.dp-blk{background:#2563eb;border-radius:7px;padding:11px 13px;margin-bottom:9px;}
+.dp-lbl{font-size:8px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;margin-bottom:4px;}
 .dp-row{display:flex;justify-content:space-between;align-items:center;}
-.dp-amt{font-size:20px;font-weight:900;color:#fff;}
-.dp-now{font-size:7px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;}
-.dp-bal{font-size:8px;font-weight:600;color:rgba(255,255,255,0.55);margin-top:4px;}
+.dp-amt{font-size:22px;font-weight:900;color:#fff;}
+.dp-now{font-size:8px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;}
+.dp-bal{font-size:9px;font-weight:600;color:rgba(255,255,255,0.55);margin-top:5px;}
 .dp-bal b{color:#fff;font-weight:700;}
-.qr-sec{border:1.5px dashed #e2e8f0;border-radius:6px;padding:9px;text-align:center;margin-bottom:7px;}
-.qr-note{font-size:8px;color:#64748b;margin-bottom:5px;line-height:1.4;}
+.qr-sec{border:1.5px dashed #e2e8f0;border-radius:7px;padding:10px;text-align:center;margin-bottom:9px;}
+.qr-note{font-size:9px;color:#64748b;margin-bottom:6px;line-height:1.5;}
 .qr-note b{color:#0f172a;}
-.qr-bank{font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:3px;margin-bottom:4px;}
-.qr-img{width:58px;height:58px;margin:0 auto 4px;}
-.qr-who{font-size:8px;font-weight:600;color:#0f172a;}
-.qr-acc{font-size:7px;color:#64748b;}
-.disc{font-size:7px;color:#94a3b8;line-height:1.4;text-align:center;margin-bottom:7px;}
-.send-btn{width:100%;background:#2563eb;color:#fff;border:none;border-radius:6px;padding:9px;font-size:8px;font-weight:800;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'Inter',sans-serif;cursor:pointer;}
-.done-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;padding:14px 12px;}
-.done-ic{width:44px;height:44px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
-.done-h{font-size:15px;font-weight:900;color:#0f172a;margin-bottom:4px;}
-.done-p{font-size:10px;color:#64748b;margin-bottom:12px;line-height:1.6;}
-.chk-list{display:flex;flex-direction:column;gap:5px;width:100%;max-width:320px;margin:0 auto 13px;}
-.chk{background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:6px 10px;display:flex;align-items:center;gap:7px;text-align:left;}
-.chk-ic{width:17px;height:17px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.chk-t{font-size:9px;color:#0f172a;font-weight:500;}
+.qr-bank{font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:3px;margin-bottom:5px;}
+.qr-img{width:64px;height:64px;margin:0 auto 5px;}
+.qr-who{font-size:9px;font-weight:600;color:#0f172a;}
+.qr-acc{font-size:8px;color:#64748b;}
+.disc{font-size:8px;color:#94a3b8;line-height:1.5;text-align:center;margin-bottom:9px;}
+.send-btn{width:100%;background:#2563eb;color:#fff;border:none;border-radius:7px;padding:11px;font-size:9px;font-weight:800;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'Inter',sans-serif;cursor:pointer;}
+.done-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;padding:16px 14px;}
+.done-ic{width:48px;height:48px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.done-h{font-size:17px;font-weight:900;color:#0f172a;margin-bottom:5px;}
+.done-p{font-size:11px;color:#64748b;margin-bottom:14px;line-height:1.6;}
+.chk-list{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin:0 auto 15px;}
+.chk{background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:8px 11px;display:flex;align-items:center;gap:8px;text-align:left;}
+.chk-ic{width:19px;height:19px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.chk-t{font-size:10px;color:#0f172a;font-weight:500;}
 .chk-t b{font-weight:800;}
-.visit-btn{background:#2563eb;color:#fff;border:none;border-radius:7px;padding:9px 18px;font-size:10px;font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:5px;cursor:pointer;font-family:'Inter',sans-serif;}
-
-/* overlay */
-.cursor{position:absolute;width:13px;height:13px;border-radius:50%;background:rgba(37,99,235,0.9);pointer-events:none;z-index:100;transition:left 0.55s cubic-bezier(.4,0,.2,1),top 0.55s cubic-bezier(.4,0,.2,1),transform .12s;transform:scale(1);}
-.cursor::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid rgba(37,99,235,0.35);}
+.visit-btn{background:#2563eb;color:#fff;border:none;border-radius:7px;padding:10px 20px;font-size:11px;font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Inter',sans-serif;}
+.cursor{position:absolute;width:14px;height:14px;border-radius:50%;background:rgba(37,99,235,0.9);pointer-events:none;z-index:100;transition:left .55s cubic-bezier(.4,0,.2,1),top .55s cubic-bezier(.4,0,.2,1),transform .12s;transform:scale(1);}
+.cursor::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(37,99,235,0.35);}
 .cursor.ck{transform:scale(0.5);}
 .hring{position:absolute;border:2.5px solid #2563eb;border-radius:6px;pointer-events:none;z-index:90;opacity:0;transition:opacity .3s,left .4s cubic-bezier(.4,0,.2,1),top .4s cubic-bezier(.4,0,.2,1),width .4s,height .4s;}
 .hring.on{opacity:1;}
-
-/* callout — fixed-width tooltip, always rendered inside stage */
-.callout{
-  position:absolute;
-  background:#0f172a;color:#fff;
-  font-size:9px;font-weight:700;
-  padding:4px 8px;border-radius:5px;
-  pointer-events:none;z-index:95;
-  white-space:nowrap;
-  opacity:0;transition:opacity .3s;
-  letter-spacing:0.01em;
-}
+.callout{position:absolute;z-index:95;pointer-events:none;background:#0f172a;color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:opacity .3s;}
 .callout.on{opacity:1;}
-/* arrow variants */
-.callout.au::after,.callout.ad::after,.callout.al::after,.callout.ar::after{
-  content:'';position:absolute;width:6px;height:6px;background:#0f172a;transform:rotate(45deg);
-}
-.callout.au::after{bottom:-3px;left:calc(50% - 3px);}   /* arrow points DOWN  → tooltip is ABOVE element */
-.callout.ad::after{top:-3px;left:calc(50% - 3px);}      /* arrow points UP    → tooltip is BELOW element */
-.callout.al::after{right:-3px;top:calc(50% - 3px);}     /* arrow points RIGHT → tooltip is LEFT of element */
-.callout.ar::after{left:-3px;top:calc(50% - 3px);}      /* arrow points LEFT  → tooltip is RIGHT of element */
-
+.callout::after{content:'';position:absolute;width:7px;height:7px;background:#0f172a;transform:rotate(45deg);}
+.callout.tip-b::after{bottom:-3.5px;left:calc(50% - 3.5px);}
+.callout.tip-t::after{top:-3.5px;left:calc(50% - 3.5px);}
+.callout.tip-r::after{right:-3.5px;top:calc(50% - 3.5px);}
+.callout.tip-l::after{left:-3.5px;top:calc(50% - 3.5px);}
 .wipe{position:absolute;inset:0;background:#2563eb;z-index:200;transform:scaleX(0);pointer-events:none;transition:none;}
-.ctrl{background:#0f172a;padding:9px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.dots{display:flex;gap:4px;align-items:center;}
-.dot{width:5px;height:5px;border-radius:50%;background:#1e293b;transition:all .3s;}
-.dot.on{background:#2563eb;width:14px;border-radius:3px;}
+.ctrl{background:#0f172a;padding:10px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0;padding-bottom:max(10px,env(safe-area-inset-bottom,0px));}
+.dots{display:flex;gap:5px;align-items:center;}
+.dot{width:6px;height:6px;border-radius:50%;background:#1e293b;transition:all .3s;}
+.dot.on{background:#2563eb;width:16px;border-radius:3px;}
 .dot.dn{background:#334155;}
-.si{font-size:10px;color:#475569;font-weight:500;}
-.cbtns{display:flex;gap:6px;margin-left:auto;}
-.nb{padding:7px 13px;border:none;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+.si{font-size:11px;color:#475569;font-weight:500;}
+.cbtns{display:flex;gap:7px;margin-left:auto;}
+.nb{padding:8px 14px;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
 .nb.bk{background:#1e293b;color:#64748b;}
 .nb.nx{background:#2563eb;color:#fff;}
-.au{animation:aU .4s cubic-bezier(.22,1,.36,1) both;}
-.au2{animation:aU .4s .07s cubic-bezier(.22,1,.36,1) both;}
-.au3{animation:aU .4s .14s cubic-bezier(.22,1,.36,1) both;}
-.au4{animation:aU .4s .21s cubic-bezier(.22,1,.36,1) both;}
-.asc{animation:aS .38s cubic-bezier(.22,1,.36,1) both;}
-.afd{animation:aF .38s ease both;}
-@keyframes aU{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.au{animation:aU .42s cubic-bezier(.22,1,.36,1) both;}
+.au2{animation:aU .42s .08s cubic-bezier(.22,1,.36,1) both;}
+.au3{animation:aU .42s .16s cubic-bezier(.22,1,.36,1) both;}
+.au4{animation:aU .42s .24s cubic-bezier(.22,1,.36,1) both;}
+.asc{animation:aS .40s cubic-bezier(.22,1,.36,1) both;}
+.afd{animation:aF .40s ease both;}
+@keyframes aU{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
 @keyframes aS{from{opacity:0;transform:scale(0.94);}to{opacity:1;transform:scale(1);}}
 @keyframes aF{from{opacity:0;}to{opacity:1;}}
 </style>
-
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Crate Drop Collective pre-order walkthrough demo</h2>
+</head>
+<body>
 <div class="shell">
 <div class="stage" id="stage">
   <div class="wipe" id="wipe"></div>
-  <div class="cursor" id="cur" style="left:-20px;top:-20px;opacity:0;"></div>
+  <div class="cursor" id="cur" style="left:-30px;top:-30px;opacity:0;"></div>
   <div class="hring" id="hr"></div>
   <div class="callout" id="co"></div>
 
-  <!-- SC0 home -->
   <div class="scene on" id="sc0">
     <div class="s0-wrap">
       <div class="hero">
@@ -187,132 +180,112 @@
       <div class="dest-col">
         <div class="dest dk" id="destPre">
           <div class="dest-bg">PRE</div>
-          <div class="dest-icon"><i class="ti ti-clock" style="font-size:14px;color:#fff" aria-hidden="true"></i></div>
+          <div class="dest-icon"><i class="ti ti-clock" style="font-size:15px;color:#fff" aria-hidden="true"></i></div>
           <div class="dest-h1">Pre-order</div>
           <div class="dest-h2">Drops</div>
-          <div class="dest-p">Secure upcoming releases before they hit the shelves.</div>
-          <div class="dest-cta" id="enterShop">Enter Shop <i class="ti ti-arrow-right" style="font-size:11px" aria-hidden="true"></i></div>
+          <div class="dest-p">Secure upcoming releases before they hit shelves.</div>
+          <div class="dest-cta" id="enterShop">Enter Shop <i class="ti ti-arrow-right" style="font-size:12px" aria-hidden="true"></i></div>
         </div>
         <div class="dest lt">
           <div class="dest-bg d">LIVE</div>
-          <div class="dest-icon" style="background:#0f172a;"><i class="ti ti-package" style="font-size:14px;color:#fff" aria-hidden="true"></i></div>
+          <div class="dest-icon" style="background:#0f172a;"><i class="ti ti-package" style="font-size:15px;color:#fff" aria-hidden="true"></i></div>
           <div class="dest-h1 d">On-hand</div>
           <div class="dest-h2">Stock</div>
           <div class="dest-p d">Ready to ship. Browse current inventory.</div>
-          <div class="dest-cta d">Enter Shop <i class="ti ti-arrow-right" style="font-size:11px" aria-hidden="true"></i></div>
+          <div class="dest-cta d">Enter Shop <i class="ti ti-arrow-right" style="font-size:12px" aria-hidden="true"></i></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SC1 browse -->
   <div class="scene" id="sc1">
     <div class="tb">
       <div class="tb-logo"><div class="tb-a">Crate Drop</div><div class="tb-b">Collective</div></div>
       <div class="tb-nav"><span class="tb-n">Home</span><span class="tb-n">Products</span><span class="tb-n on">Preorder</span></div>
-      <button class="tb-cart" id="cartBtn"><i class="ti ti-shopping-cart" style="font-size:11px" aria-hidden="true"></i> ₱0</button>
+      <button class="tb-cart" id="cartBtn"><i class="ti ti-shopping-cart" style="font-size:12px" aria-hidden="true"></i> &#8369;0</button>
     </div>
     <div class="pb"><div class="pb-f" style="width:25%"></div></div>
     <div class="body">
-      <div class="pill au"><i class="ti ti-circle-number-1" style="font-size:10px" aria-hidden="true"></i>Browse drops</div>
+      <div class="pill au"><i class="ti ti-circle-number-1" style="font-size:11px" aria-hidden="true"></i>Browse drops</div>
       <div class="pgrid">
         <div class="pc au2">
-          <div class="pc-img"><div style="width:40px;height:54px;background:#1a1a1a;border:1px solid #333;border-radius:3px;display:flex;align-items:center;justify-content:center;"><div style="font-size:6px;font-weight:800;color:#fff;text-align:center;line-height:1.5;">[OP-18]<br>ONE PIECE</div></div><div class="pc-badge">Booster Box</div><div class="pc-eta">Nov 2026</div></div>
-          <div class="pc-body">
-            <div class="pc-series">OP-18</div>
-            <div class="pc-name">One Piece (Japanese) Booster Box OP-18</div>
-            <div class="pc-tog"><div class="pc-t on">UNIT</div><div class="pc-t">CASE (12)</div></div>
-            <div class="pc-timer"><i class="ti ti-trophy" style="font-size:8px" aria-hidden="true"></i>CLOSES: 0D 0H 16M</div>
-            <div class="pc-price">₱3,500</div>
-            <div class="pc-dp">30% DP: <b>₱1,050</b></div>
-            <div class="pc-qty"><div class="qb">-</div><div class="qv">1</div><div class="qb">+</div></div>
-            <button class="pc-add" id="addBtn">Add to Crate</button>
-          </div>
+          <div class="pc-img"><div style="width:44px;height:62px;background:#1a1a1a;border:1px solid #333;border-radius:3px;display:flex;align-items:center;justify-content:center;"><div style="font-size:7px;font-weight:800;color:#fff;text-align:center;line-height:1.5;">[OP-18]<br>ONE PIECE</div></div><div class="pc-badge">Booster Box</div><div class="pc-eta">Nov 2026</div></div>
+          <div class="pc-body"><div class="pc-series">OP-18</div><div class="pc-name">One Piece (Japanese) Booster Box OP-18</div><div class="pc-tog"><div class="pc-t on">UNIT</div><div class="pc-t">CASE (12)</div></div><div class="pc-timer"><i class="ti ti-trophy" style="font-size:9px" aria-hidden="true"></i>CLOSES: 0D 0H 16M</div><div class="pc-price">&#8369;3,500</div><div class="pc-dp">30% DP: <b>&#8369;1,050</b></div><div class="pc-qty"><div class="qb">-</div><div class="qv">1</div><div class="qb">+</div></div><button class="pc-add" id="addBtn">Add to Crate</button></div>
         </div>
         <div class="pc au3">
-          <div class="pc-img"><div style="width:40px;height:54px;background:#2a1f0a;border:1px solid #4a3520;border-radius:3px;display:flex;align-items:center;justify-content:center;"><div style="font-size:6px;font-weight:800;color:#f59e0b;text-align:center;line-height:1.5;">PALWORLD<br>TCG</div></div><div class="pc-badge">Booster Box</div><div class="pc-eta">Oct 2026</div></div>
-          <div class="pc-body">
-            <div class="pc-series">Legends Awaken</div>
-            <div class="pc-name">Palworld Card Game Legends Awaken</div>
-            <div class="pc-tog"><div class="pc-t on">UNIT</div><div class="pc-t">CASE (12)</div></div>
-            <div class="pc-timer"><i class="ti ti-trophy" style="font-size:8px" aria-hidden="true"></i>CLOSES: 11D 23H</div>
-            <div class="pc-price">₱2,700</div>
-            <div class="pc-dp">30% DP: <b>₱810</b></div>
-            <div class="pc-qty"><div class="qb">-</div><div class="qv">1</div><div class="qb">+</div></div>
-            <button class="pc-add">Add to Crate</button>
-          </div>
+          <div class="pc-img"><div style="width:44px;height:62px;background:#2a1f0a;border:1px solid #4a3520;border-radius:3px;display:flex;align-items:center;justify-content:center;"><div style="font-size:7px;font-weight:800;color:#f59e0b;text-align:center;line-height:1.5;">PALWORLD<br>TCG</div></div><div class="pc-badge">Booster Box</div><div class="pc-eta">Oct 2026</div></div>
+          <div class="pc-body"><div class="pc-series">Legends Awaken</div><div class="pc-name">Palworld Card Game Legends Awaken</div><div class="pc-tog"><div class="pc-t on">UNIT</div><div class="pc-t">CASE (12)</div></div><div class="pc-timer"><i class="ti ti-trophy" style="font-size:9px" aria-hidden="true"></i>CLOSES: 11D 23H</div><div class="pc-price">&#8369;2,700</div><div class="pc-dp">30% DP: <b>&#8369;810</b></div><div class="pc-qty"><div class="qb">-</div><div class="qv">1</div><div class="qb">+</div></div><button class="pc-add">Add to Crate</button></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SC2 crate -->
   <div class="scene" id="sc2">
     <div class="tb">
       <div class="tb-logo"><div class="tb-a">Crate Drop</div><div class="tb-b">Collective</div></div>
       <div class="tb-nav"><span class="tb-n">Home</span><span class="tb-n">Products</span><span class="tb-n on">Preorder</span></div>
-      <button class="tb-cart"><i class="ti ti-shopping-cart" style="font-size:11px" aria-hidden="true"></i> ₱1,050</button>
+      <button class="tb-cart"><i class="ti ti-shopping-cart" style="font-size:12px" aria-hidden="true"></i> &#8369;1,050</button>
     </div>
     <div class="pb"><div class="pb-f" style="width:55%"></div></div>
     <div class="body">
-      <div class="pill au"><i class="ti ti-circle-number-2" style="font-size:10px" aria-hidden="true"></i>Review your crate</div>
+      <div class="pill au"><i class="ti ti-circle-number-2" style="font-size:11px" aria-hidden="true"></i>Review your crate</div>
       <div class="crate asc">
-        <div class="crate-hdr"><div class="crate-ttl">Your Crate</div><span style="color:#94a3b8;font-size:14px;">×</span></div>
-        <div class="crate-item"><div class="ci-t"></div><div class="ci-i"><div class="ci-name">One Piece Booster Box OP-18 <span class="ci-tag">UNIT</span></div><div class="ci-eta">ETA: November 2026</div><div style="display:flex;gap:4px;margin-top:4px;align-items:center;"><div class="qb">-</div><span style="font-size:9px;font-weight:800;color:#0f172a;">1</span><div class="qb">+</div></div></div><div class="ci-r"><div class="ci-dpl">30% DP:</div><div class="ci-dpv">₱1,050</div></div></div>
+        <div class="crate-hdr"><div class="crate-ttl">Your Crate</div><span style="color:#94a3b8;font-size:16px;">&#215;</span></div>
+        <div class="crate-item"><div class="ci-t"></div><div class="ci-i"><div class="ci-name">One Piece Booster Box OP-18 <span class="ci-tag">UNIT</span></div><div class="ci-eta">ETA: November 2026</div><div style="display:flex;gap:5px;margin-top:5px;align-items:center;"><div class="qb">-</div><span style="font-size:11px;font-weight:800;color:#0f172a;">1</span><div class="qb">+</div></div></div><div class="ci-r"><div class="ci-dpl">30% DP:</div><div class="ci-dpv">&#8369;1,050</div></div></div>
         <div class="crate-foot">
-          <div class="cf-r"><span class="cf-l">Total order value:</span><span class="cf-v">₱3,500</span></div>
-          <div class="cf-r"><span class="cf-l" style="color:#2563eb;font-weight:800;">30% downpayment:</span><span class="cf-v big">₱1,050</span></div>
+          <div class="cf-r"><span class="cf-l">Total order value:</span><span class="cf-v">&#8369;3,500</span></div>
+          <div class="cf-r"><span class="cf-l" style="color:#2563eb;font-weight:800;">30% downpayment:</span><span class="cf-v big">&#8369;1,050</span></div>
           <div class="co-btns">
-            <button class="co-btn dk" id="assistedBtn"><i class="ti ti-clipboard-copy" style="font-size:11px" aria-hidden="true"></i>Assisted Checkout (Paste Order)</button>
-            <button class="co-btn bl" id="selfBtn"><i class="ti ti-qrcode" style="font-size:11px" aria-hidden="true"></i>Self-Checkout (Pay via QR)</button>
+            <button class="co-btn dk" id="assistedBtn"><i class="ti ti-clipboard-copy" style="font-size:12px" aria-hidden="true"></i>Assisted Checkout (Paste Order)</button>
+            <button class="co-btn bl" id="selfBtn"><i class="ti ti-qrcode" style="font-size:12px" aria-hidden="true"></i>Self-Checkout (Pay via QR)</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SC3 payment -->
   <div class="scene" id="sc3">
     <div class="tb">
       <div class="tb-logo"><div class="tb-a">Crate Drop</div><div class="tb-b">Collective</div></div>
       <div class="tb-nav"><span class="tb-n">Home</span><span class="tb-n">Products</span><span class="tb-n on">Preorder</span></div>
-      <button class="tb-cart"><i class="ti ti-shopping-cart" style="font-size:11px" aria-hidden="true"></i> ₱1,050</button>
+      <button class="tb-cart"><i class="ti ti-shopping-cart" style="font-size:12px" aria-hidden="true"></i> &#8369;1,050</button>
     </div>
     <div class="pb"><div class="pb-f" style="width:80%"></div></div>
     <div class="body modal-wrap">
       <div class="modal au">
-        <div class="mhdr"><div class="mttl">Order Breakdown</div><div class="mx">×</div></div>
+        <div class="mhdr"><div class="mttl">Order Breakdown</div><div class="mx">&#215;</div></div>
         <div class="mbody">
-          <div class="oi"><div class="oi-r">1× One Piece (Japanese) OP-18<b>₱1,050</b></div><div class="oi-tags"><span class="oi-t bl">UNIT</span><span class="oi-t gr">ETA: NOV 2026</span><span class="oi-t gr">BAL: ₱2,450</span></div></div>
-          <div class="dp-blk" id="dpBlock"><div class="dp-lbl">Total downpayment due (30%)</div><div class="dp-row"><div class="dp-amt">₱1,050</div><div class="dp-now">To be paid now</div></div><div class="dp-bal">Balance remaining later: <b>₱2,450</b></div></div>
-          <div class="qr-sec" id="qrBlock"><div class="qr-note">Pay via Instapay. <b>TAKE A SCREENSHOT</b> of this screen and your receipt.</div><div class="qr-bank"><span style="color:#f26122;font-weight:900;">Mari</span><span style="color:#254aa5;font-weight:900;">Bank</span></div><div class="qr-img"><svg viewBox="0 0 64 64" width="58" height="58"><rect width="64" height="64" fill="white"/><rect x="4" y="4" width="20" height="20" fill="none" stroke="#000" stroke-width="2.5"/><rect x="8" y="8" width="12" height="12" fill="#000"/><rect x="40" y="4" width="20" height="20" fill="none" stroke="#000" stroke-width="2.5"/><rect x="44" y="8" width="12" height="12" fill="#000"/><rect x="4" y="40" width="20" height="20" fill="none" stroke="#000" stroke-width="2.5"/><rect x="8" y="44" width="12" height="12" fill="#000"/><rect x="28" y="6" width="4" height="4" fill="#000"/><rect x="34" y="6" width="3" height="3" fill="#000"/><rect x="28" y="13" width="3" height="3" fill="#000"/><rect x="28" y="28" width="6" height="3" fill="#000"/><rect x="37" y="28" width="3" height="3" fill="#000"/><rect x="44" y="28" width="3" height="3" fill="#000"/><rect x="52" y="31" width="3" height="6" fill="#000"/><rect x="28" y="40" width="3" height="6" fill="#000"/><rect x="35" y="44" width="4" height="3" fill="#000"/><rect x="43" y="40" width="3" height="3" fill="#000"/><rect x="49" y="44" width="3" height="6" fill="#000"/><rect x="55" y="40" width="5" height="3" fill="#000"/><rect x="28" y="52" width="5" height="3" fill="#000"/><rect x="37" y="52" width="3" height="3" fill="#000"/></svg></div><div class="qr-who">KATHREN YVONNE DY.</div><div class="qr-acc">MariBank(****3441)</div></div>
+          <div class="oi"><div class="oi-r">1&#215; One Piece (Japanese) OP-18<b>&#8369;1,050</b></div><div class="oi-tags"><span class="oi-t bl">UNIT</span><span class="oi-t gr">ETA: NOV 2026</span><span class="oi-t gr">BAL: &#8369;2,450</span></div></div>
+          <div class="dp-blk" id="dpBlock"><div class="dp-lbl">Total downpayment due (30%)</div><div class="dp-row"><div class="dp-amt">&#8369;1,050</div><div class="dp-now">To be paid now</div></div><div class="dp-bal">Balance remaining later: <b>&#8369;2,450</b></div></div>
+          <div class="qr-sec" id="qrBlock"><div class="qr-note">Pay via Instapay. <b>TAKE A SCREENSHOT</b> of this screen and your receipt.</div><div class="qr-bank"><span style="color:#f26122;font-weight:900;">Mari</span><span style="color:#254aa5;font-weight:900;">Bank</span></div><div class="qr-img"><svg viewBox="0 0 64 64" width="64" height="64"><rect width="64" height="64" fill="white"/><rect x="4" y="4" width="20" height="20" fill="none" stroke="#000" stroke-width="2.5"/><rect x="8" y="8" width="12" height="12" fill="#000"/><rect x="40" y="4" width="20" height="20" fill="none" stroke="#000" stroke-width="2.5"/><rect x="44" y="8" width="12" height="12" fill="#000"/><rect x="4" y="40" width="20" height="20" fill="none" stroke="#000" stroke-width="2.5"/><rect x="8" y="44" width="12" height="12" fill="#000"/><rect x="28" y="6" width="4" height="4" fill="#000"/><rect x="34" y="6" width="3" height="3" fill="#000"/><rect x="28" y="13" width="3" height="3" fill="#000"/><rect x="28" y="28" width="6" height="3" fill="#000"/><rect x="37" y="28" width="3" height="3" fill="#000"/><rect x="44" y="28" width="3" height="3" fill="#000"/><rect x="52" y="31" width="3" height="6" fill="#000"/><rect x="28" y="40" width="3" height="6" fill="#000"/><rect x="35" y="44" width="4" height="3" fill="#000"/><rect x="43" y="40" width="3" height="3" fill="#000"/><rect x="49" y="44" width="3" height="6" fill="#000"/><rect x="55" y="40" width="5" height="3" fill="#000"/><rect x="28" y="52" width="5" height="3" fill="#000"/><rect x="37" y="52" width="3" height="3" fill="#000"/></svg></div><div class="qr-who">KATHREN YVONNE DY.</div><div class="qr-acc">MariBank(****3441)</div></div>
           <div class="disc">Pre-Orders are subject to country allocation. By placing a pre-order, I acknowledge the possibility of allocation cuts.</div>
-          <button class="send-btn" id="sendBtn"><i class="ti ti-brand-messenger" style="font-size:12px" aria-hidden="true"></i>Send Proof to Messenger</button>
+          <button class="send-btn" id="sendBtn"><i class="ti ti-brand-messenger" style="font-size:13px" aria-hidden="true"></i>Send Proof to Messenger</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SC4 done -->
   <div class="scene" id="sc4">
     <div class="tb">
       <div class="tb-logo"><div class="tb-a">Crate Drop</div><div class="tb-b">Collective</div></div>
       <div class="tb-nav"><span class="tb-n">Home</span><span class="tb-n">Products</span><span class="tb-n on">Preorder</span></div>
-      <button class="tb-cart"><i class="ti ti-shopping-cart" style="font-size:11px" aria-hidden="true"></i> ₱1,050</button>
+      <button class="tb-cart"><i class="ti ti-shopping-cart" style="font-size:12px" aria-hidden="true"></i> &#8369;1,050</button>
     </div>
     <div class="pb"><div class="pb-f" style="width:100%"></div></div>
     <div class="body">
       <div class="done-wrap">
-        <div class="done-ic asc"><i class="ti ti-check" style="font-size:19px;color:#16a34a" aria-hidden="true"></i></div>
+        <div class="done-ic asc"><i class="ti ti-check" style="font-size:21px;color:#16a34a" aria-hidden="true"></i></div>
         <div class="done-h au">Pre-order placed!</div>
         <div class="done-p au2">Slot reserved. Team confirms once payment proof arrives on Messenger.</div>
         <div class="chk-list">
-          <div class="chk au2"><div class="chk-ic"><i class="ti ti-check" style="font-size:9px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Product selected</b> — OP-18 Booster Box (1× UNIT)</div></div>
-          <div class="chk au3"><div class="chk-ic"><i class="ti ti-check" style="font-size:9px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Crate reviewed</b> — ₱3,500 total, ₱1,050 DP</div></div>
-          <div class="chk au3"><div class="chk-ic"><i class="ti ti-check" style="font-size:9px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Payment sent</b> — ₱1,050 via Instapay QR</div></div>
-          <div class="chk au4"><div class="chk-ic"><i class="ti ti-check" style="font-size:9px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Proof submitted</b> — screenshot sent on Messenger</div></div>
+          <div class="chk au2"><div class="chk-ic"><i class="ti ti-check" style="font-size:10px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Product selected</b> &#8212; OP-18 Booster Box (1&#215; UNIT)</div></div>
+          <div class="chk au3"><div class="chk-ic"><i class="ti ti-check" style="font-size:10px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Crate reviewed</b> &#8212; &#8369;3,500 total, &#8369;1,050 DP</div></div>
+          <div class="chk au3"><div class="chk-ic"><i class="ti ti-check" style="font-size:10px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Payment sent</b> &#8212; &#8369;1,050 via Instapay QR</div></div>
+          <div class="chk au4"><div class="chk-ic"><i class="ti ti-check" style="font-size:10px;color:#16a34a" aria-hidden="true"></i></div><div class="chk-t"><b>Proof submitted</b> &#8212; screenshot sent on Messenger</div></div>
         </div>
-        <button class="visit-btn afd" id="visitBtn">Visit pre-order portal <i class="ti ti-external-link" style="font-size:11px" aria-hidden="true"></i></button>
+        <button class="visit-btn afd" id="visitBtn" onclick="window.location.href='https://cratedropcollective.github.io/preorder'">
+          Visit pre-order portal <i class="ti ti-external-link" style="font-size:12px" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -331,270 +304,104 @@
 <script>
 const SCENES=['sc0','sc1','sc2','sc3','sc4'];
 const LABELS=['Intro','Browse drops','Review crate','Pay via QR','Done!'];
-const NLABELS=['Start demo','Next →','Next →','Next →','Visit site'];
+const NLABELS=['Start demo','Next \u2192','Next \u2192','Next \u2192','Visit site'];
 let cur=0,busy=false,autoT=null,annTs=[];
-
 const stage=document.getElementById('stage');
-const wipeEl=document.getElementById('wipe');
+const wEl=document.getElementById('wipe');
 const curEl=document.getElementById('cur');
 const hrEl=document.getElementById('hr');
 const coEl=document.getElementById('co');
 
-/* ─── measure element relative to stage ─── */
-function measure(id){
-  const el=document.getElementById(id);
-  if(!el)return null;
-  const sr=stage.getBoundingClientRect();
-  const er=el.getBoundingClientRect();
-  return{
-    x:er.left-sr.left, y:er.top-sr.top,
-    w:er.width,         h:er.height,
-    cx:er.left-sr.left+er.width/2,
-    cy:er.top-sr.top+er.height/2,
-    r:er.right-sr.left, b:er.bottom-sr.top
-  };
+function m(id){
+  const el=document.getElementById(id);if(!el)return null;
+  const sr=stage.getBoundingClientRect(),er=el.getBoundingClientRect();
+  return{x:er.left-sr.left,y:er.top-sr.top,w:er.width,h:er.height,
+         cx:er.left-sr.left+er.width/2,cy:er.top-sr.top+er.height/2};
 }
-
-/* ─── safe callout placement ───────────────
-   Places the tooltip label so it never exits the stage.
-   `side` = 'above'|'below'|'left'|'right' is the PREFERRED side.
-   Falls back automatically if there isn't room.            */
-const STAGE_PAD=6;   // min px from stage edge
-const TIP_H=24;      // approx tooltip height
-const TIP_GAP=7;     // gap between ring edge and tooltip
-
-function placeCallout(text, rx, ry, rw, rh, pad, preferredSide){
-  const sw=stage.offsetWidth;
-  const sh=stage.offsetHeight;
-  const tipW=Math.min(text.length*6.5+20, 200);
-
-  // ring outer bounds
-  const ox=rx-pad, oy=ry-pad, ow=rw+pad*2, oh=rh+pad*2;
-
-  // candidate positions for each side
-  const above = { top: oy - TIP_GAP - TIP_H,   left: ox+ow/2 - tipW/2, arrow:'au' };
-  const below = { top: oy + oh + TIP_GAP,        left: ox+ow/2 - tipW/2, arrow:'ad' };
-  const left  = { top: oy + oh/2 - TIP_H/2,     left: ox - TIP_GAP - tipW, arrow:'al' };
-  const right = { top: oy + oh/2 - TIP_H/2,     left: ox + ow + TIP_GAP,   arrow:'ar' };
-
-  const fits=(p)=>
-    p.left >= STAGE_PAD &&
-    p.left + tipW <= sw - STAGE_PAD &&
-    p.top  >= STAGE_PAD &&
-    p.top  + TIP_H <= sh - STAGE_PAD;
-
-  const order = {
-    above:[above,below,right,left],
-    below:[below,above,right,left],
-    left: [left,right,above,below],
-    right:[right,left,above,below],
-  }[preferredSide] || [above,below,right,left];
-
-  let chosen=null;
-  for(const p of order){ if(fits(p)){chosen=p;break;} }
-  if(!chosen) chosen=above; // last resort — clamp
-
-  // clamp horizontally & vertically within stage
-  chosen.left=Math.max(STAGE_PAD, Math.min(chosen.left, sw-tipW-STAGE_PAD));
-  chosen.top =Math.max(STAGE_PAD, Math.min(chosen.top,  sh-TIP_H-STAGE_PAD));
-
-  coEl.textContent=text;
-  coEl.className='callout on '+chosen.arrow;
-  coEl.style.left=chosen.left+'px';
-  coEl.style.top =chosen.top+'px';
-  coEl.style.width=tipW+'px';
+const PAD=8,TH=26,TW_PER_CHAR=6.5,TW_BASE=24;
+function tipW(t){return Math.min(t.length*TW_PER_CHAR+TW_BASE,210);}
+function placeTip(text,rx,ry,rw,rh,rp){
+  const sw=stage.offsetWidth,sh=stage.offsetHeight,tw=tipW(text);
+  const ox=rx-rp,oy=ry-rp,ow=rw+rp*2,oh=rh+rp*2,G=8;
+  const cands=[
+    {cl:'tip-b',l:ox+ow/2-tw/2,t:oy-G-TH},
+    {cl:'tip-t',l:ox+ow/2-tw/2,t:oy+oh+G},
+    {cl:'tip-r',l:ox-G-tw,t:oy+oh/2-TH/2},
+    {cl:'tip-l',l:ox+ow+G,t:oy+oh/2-TH/2},
+  ];
+  let c=cands.find(p=>p.l>=PAD&&p.l+tw<=sw-PAD&&p.t>=PAD&&p.t+TH<=sh-PAD)||cands[0];
+  c.l=Math.max(PAD,Math.min(c.l,sw-tw-PAD));
+  c.t=Math.max(PAD,Math.min(c.t,sh-TH-PAD));
+  coEl.textContent=text;coEl.className='callout on '+c.cl;
+  coEl.style.width=tw+'px';coEl.style.left=c.l+'px';coEl.style.top=c.t+'px';
 }
-
-/* ─── ring + callout helper ─── */
-function ring(id, text, preferredSide, pad=4){
-  const m=measure(id);
-  if(!m)return null;
-  hrEl.style.left  =(m.x-pad)+'px';
-  hrEl.style.top   =(m.y-pad)+'px';
-  hrEl.style.width =(m.w+pad*2)+'px';
-  hrEl.style.height=(m.h+pad*2)+'px';
+function ring(id,text,pad=4){
+  const r=m(id);if(!r)return null;
+  hrEl.style.left=(r.x-pad)+'px';hrEl.style.top=(r.y-pad)+'px';
+  hrEl.style.width=(r.w+pad*2)+'px';hrEl.style.height=(r.h+pad*2)+'px';
   hrEl.classList.add('on');
-  if(text) placeCallout(text,m.x,m.y,m.w,m.h,pad,preferredSide);
-  return m;
+  if(text)placeTip(text,r.x,r.y,r.w,r.h,pad);
+  return r;
 }
-
-function hideRing(delay){
-  annTs.push(setTimeout(()=>{hrEl.classList.remove('on');coEl.classList.remove('on');},delay));
-}
-
-/* ─── cursor ─── */
-function cursor(x,y,delay,cb){
-  annTs.push(setTimeout(()=>{
-    curEl.style.opacity='1';
-    curEl.style.left=(x-6.5)+'px';
-    curEl.style.top =(y-6.5)+'px';
-    annTs.push(setTimeout(()=>{
-      curEl.classList.add('ck');
-      annTs.push(setTimeout(()=>{
-        curEl.classList.remove('ck');
-        if(cb)cb();
-      },130));
-    },560));
-  },delay));
-}
-
+function hideRing(d){annTs.push(setTimeout(()=>{hrEl.classList.remove('on');coEl.classList.remove('on');},d));}
 function addT(fn,d){annTs.push(setTimeout(fn,d));}
-
-function clearAnns(){
-  annTs.forEach(clearTimeout);annTs=[];
-  curEl.style.opacity='0';
-  hrEl.classList.remove('on');
-  coEl.classList.remove('on');
+function cursor(x,y,delay,cb){
+  addT(()=>{
+    curEl.style.opacity='1';curEl.style.left=(x-7)+'px';curEl.style.top=(y-7)+'px';
+    addT(()=>{curEl.classList.add('ck');addT(()=>{curEl.classList.remove('ck');if(cb)cb();},130);},560);
+  },delay);
 }
-
-/* ─── per-scene annotation scripts ─── */
+function clearAnns(){annTs.forEach(clearTimeout);annTs=[];curEl.style.opacity='0';hrEl.classList.remove('on');coEl.classList.remove('on');}
 function runAnns(idx){
   clearAnns();
-  // give DOM a tick to settle after scene swap
-  annTs.push(setTimeout(()=>{
-
-    if(idx===0){
-      /* Scene 0 — highlight entire Pre-order dark card */
-      const m=ring('destPre','Tap Pre-order Drops','below',3);
-      if(!m)return;
-      // cursor clicks near the "Enter Shop" cta at bottom of card
-      const ec=measure('enterShop');
-      if(ec) cursor(ec.cx, ec.cy, 350);
-    }
-
+  addT(()=>{
+    if(idx===0){const r=ring('destPre','Tap Pre-order Drops to enter');if(r)cursor(r.cx,r.cy,350);}
     else if(idx===1){
-      /* Scene 1 — first highlight "Add to Crate" button on card 1 */
-      const m=ring('addBtn','Tap Add to Crate','above',3);
-      if(!m)return;
-      cursor(m.cx, m.cy, 350, ()=>{
-        hideRing(100);
-        /* then move to cart button in top-right */
-        addT(()=>{
-          const c=ring('cartBtn','Cart updates with DP!','below',3);
-          if(c) cursor(c.cx,c.cy,150);
-        },500);
-      });
+      const r=ring('addBtn','Tap Add to Crate');if(!r)return;
+      cursor(r.cx,r.cy,350,()=>{hideRing(100);addT(()=>{const c=ring('cartBtn','Cart updates with DP total!');if(c)cursor(c.cx,c.cy,150);},500);});
     }
-
     else if(idx===2){
-      /* Scene 2 — highlight Assisted Checkout first */
-      const a=ring('assistedBtn','Option 1: Paste to Messenger','above',3);
-      if(!a)return;
-      cursor(a.cx, a.cy, 350, ()=>{
-        hideRing(100);
-        addT(()=>{
-          /* then highlight Self-Checkout */
-          const s=ring('selfBtn','Option 2: Pay via QR','above',3);
-          if(s) cursor(s.cx, s.cy, 150);
-        },500);
-      });
+      const ra=ring('assistedBtn','Option 1 \u2014 paste to Messenger');if(!ra)return;
+      cursor(ra.cx,ra.cy,350,()=>{hideRing(100);addT(()=>{const rs=ring('selfBtn','Option 2 \u2014 pay via QR instantly');if(rs)cursor(rs.cx,rs.cy,150);},500);});
     }
-
     else if(idx===3){
-      /* Scene 3 — highlight DP block */
-      const d=ring('dpBlock','30% downpayment due now','below',3);
-      if(!d)return;
-      cursor(d.cx, d.cy, 350, ()=>{
-        hideRing(100);
-        addT(()=>{
-          /* then highlight QR section */
-          const q=ring('qrBlock','Scan to pay via Instapay','above',3);
-          if(q){
-            /* cursor to Send Proof button */
-            const s=measure('sendBtn');
-            if(s) cursor(s.cx, s.cy, 600);
-          }
-        },600);
-      });
+      const rd=ring('dpBlock','30% downpayment due now');if(!rd)return;
+      cursor(rd.cx,rd.cy,350,()=>{hideRing(100);addT(()=>{const rq=ring('qrBlock','Scan this QR to pay via Instapay');if(rq){const rs=m('sendBtn');if(rs)cursor(rs.cx,rs.cy,600);}},600);});
     }
-
-    else if(idx===4){
-      /* Scene 4 — highlight Visit button */
-      const v=ring('visitBtn','Tap to visit the live site','above',4);
-      if(v) cursor(v.cx, v.cy, 350);
-    }
-
-  },750));
+    else if(idx===4){const r=ring('visitBtn','Tap to visit the live site!');if(r)cursor(r.cx,r.cy,350);}
+  },780);
 }
-
-/* ─── scene switching ─── */
 function replayAnims(idx){
-  document.getElementById(SCENES[idx])
-    .querySelectorAll('.au,.au2,.au3,.au4,.asc,.afd')
-    .forEach(e=>{
-      const cls=[...e.classList].filter(c=>['au','au2','au3','au4','asc','afd'].includes(c));
-      cls.forEach(c=>{e.classList.remove(c);void e.offsetWidth;e.classList.add(c);});
-    });
+  document.getElementById(SCENES[idx]).querySelectorAll('.au,.au2,.au3,.au4,.asc,.afd').forEach(e=>{
+    const cls=[...e.classList].filter(c=>['au','au2','au3','au4','asc','afd'].includes(c));
+    cls.forEach(c=>{e.classList.remove(c);void e.offsetWidth;e.classList.add(c);});
+  });
 }
-
-function showScene(idx){
-  SCENES.forEach((id,i)=>document.getElementById(id).classList.toggle('on',i===idx));
-  updateCtrl(idx);
-  replayAnims(idx);
-}
-
+function showScene(idx){SCENES.forEach((id,i)=>document.getElementById(id).classList.toggle('on',i===idx));updateCtrl(idx);replayAnims(idx);}
 function updateCtrl(idx){
   const d=document.getElementById('dots');d.innerHTML='';
-  for(let i=0;i<SCENES.length;i++){
-    const el=document.createElement('div');
-    el.className='dot'+(i===idx?' on':i<idx?' dn':'');
-    d.appendChild(el);
-  }
+  for(let i=0;i<SCENES.length;i++){const el=document.createElement('div');el.className='dot'+(i===idx?' on':i<idx?' dn':'');d.appendChild(el);}
   document.getElementById('si').textContent=LABELS[idx];
   document.getElementById('btnN').textContent=NLABELS[idx];
-  const bk=document.getElementById('btnB');
-  bk.style.opacity=idx===0?'0.3':'1';
-  bk.disabled=idx===0;
+  const bk=document.getElementById('btnB');bk.style.opacity=idx===0?'0.3':'1';bk.disabled=idx===0;
 }
-
 function doWipe(dir,cb){
-  wipeEl.style.transition='none';
-  wipeEl.style.transformOrigin=dir>0?'left':'right';
-  wipeEl.style.transform='scaleX(0)';
-  void wipeEl.offsetWidth;
-  wipeEl.style.transition='transform 0.24s cubic-bezier(.4,0,.2,1)';
-  wipeEl.style.transform='scaleX(1)';
-  setTimeout(()=>{
-    cb();
-    wipeEl.style.transition='none';
-    wipeEl.style.transformOrigin=dir>0?'right':'left';
-    void wipeEl.offsetWidth;
-    wipeEl.style.transition='transform 0.24s cubic-bezier(.4,0,.2,1)';
-    wipeEl.style.transform='scaleX(0)';
-    setTimeout(()=>{busy=false;},260);
-  },250);
+  wEl.style.transition='none';wEl.style.transformOrigin=dir>0?'left':'right';wEl.style.transform='scaleX(0)';
+  void wEl.offsetWidth;wEl.style.transition='transform .24s cubic-bezier(.4,0,.2,1)';wEl.style.transform='scaleX(1)';
+  setTimeout(()=>{cb();wEl.style.transition='none';wEl.style.transformOrigin=dir>0?'right':'left';void wEl.offsetWidth;wEl.style.transition='transform .24s cubic-bezier(.4,0,.2,1)';wEl.style.transform='scaleX(0)';setTimeout(()=>{busy=false;},260);},250);
 }
-
 function go(dir){
-  if(busy)return;
-  const nxt=cur+dir;
-  if(nxt<0||nxt>=SCENES.length)return;
-  busy=true;
-  clearAnns();
-  doWipe(dir,()=>{cur=nxt;showScene(cur);runAnns(cur);});
+  if(busy)return;const nxt=cur+dir;if(nxt<0||nxt>=SCENES.length)return;
+  busy=true;clearAnns();doWipe(dir,()=>{cur=nxt;showScene(cur);runAnns(cur);});
 }
-
 function manual(dir){
   clearAuto();
-  if(cur+dir>=SCENES.length){
-    window.openLink('https://cratedropcollective.github.io/preorder');
-    return;
-  }
+  if(cur+dir>=SCENES.length){window.location.href='https://cratedropcollective.github.io/preorder';return;}
   go(dir);
 }
-
-function startAuto(){
-  autoT=setTimeout(function loop(){
-    if(cur<SCENES.length-1){go(1);autoT=setTimeout(loop,4800);}
-  },3200);
-}
+function startAuto(){autoT=setTimeout(function loop(){if(cur<SCENES.length-1){go(1);autoT=setTimeout(loop,4800);}},3200);}
 function clearAuto(){clearTimeout(autoT);autoT=null;}
-
-document.getElementById('visitBtn').addEventListener('click',()=>{
-  window.openLink('https://cratedropcollective.github.io/preorder');
-});
-
-showScene(0);
-runAnns(0);
-startAuto();
+showScene(0);runAnns(0);startAuto();
 </script>
+</body>
+</html>
